@@ -5,3 +5,5 @@
 实现的函数在Turtle接口类中可以看到
 
 just for fun.
+
+![screenshot](screenshot.jpg "")
