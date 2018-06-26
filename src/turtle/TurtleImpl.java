@@ -1,7 +1,9 @@
 package turtle;
 
+import javafx.animation.Timeline;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
@@ -15,13 +17,13 @@ public class TurtleImpl implements Turtle {
     private double positionY;
     private int angle;
     private boolean down;
-    private Group group;
+    private GraphicsContext gc;
 
-    TurtleImpl(Scene scene) {
-        this.positionX = scene.getWidth() / 2;
-        this.positionY = scene.getHeight() / 2;
+    TurtleImpl(GraphicsContext gc) {
+        this.gc = gc;
+        this.positionX = gc.getCanvas().getWidth() / 2;
+        this.positionY = gc.getCanvas().getHeight() / 2;
         this.angle = 0;
-        this.group = new Group();
         this.down = true;
     }
 
@@ -78,15 +80,7 @@ public class TurtleImpl implements Turtle {
     @Override
     public void circle(int r) {
         // log(this.positionX, this.positionY);
-
-        Circle circle = new Circle(r, Color.web("white", 0));
-        circle.setStrokeType(StrokeType.OUTSIDE);
-        circle.setStroke(Color.BLACK);
-        circle.setStrokeWidth(1);
-        circle.setCenterX(this.positionX);
-        circle.setCenterY(this.positionY);
-        //
-        this.group.getChildren().add(circle);
+        gc.strokeOval(this.positionX - r, this.positionY - r, r*2, r*2);
     }
 
     @Override
@@ -99,14 +93,7 @@ public class TurtleImpl implements Turtle {
         return this.positionY;
     }
 
-    @Override
-    public Group draw() {
-        return this.group;
-    }
-
     private void line(double startX, double startY, double endX, double endY) {
-        Line line = new Line(startX, startY, endX, endY);
-        //
-        this.group.getChildren().add(line);
+        gc.strokeLine(startX, startY, endX, endY);
     }
 }

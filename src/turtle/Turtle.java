@@ -2,11 +2,12 @@ package turtle;
 
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.canvas.GraphicsContext;
 
 public interface Turtle {
 
-    static Turtle getInstance(Scene scene) {
-        return new TurtleImpl(scene);
+    static Turtle getInstance(GraphicsContext gc) {
+        return new TurtleImpl(gc);
     }
 
     void pendown();
@@ -28,7 +29,4 @@ public interface Turtle {
     double getX();
 
     double getY();
-
-    Group draw();
-
 }
