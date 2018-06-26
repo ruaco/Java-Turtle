@@ -3,9 +3,14 @@ package sample;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
 
 
+/**
+ * {@link "https://docs.oracle.com/javafx/2/canvas/jfxpub-canvas.htm"}
+ * */
 public class Window extends Application {
 
     @Override
@@ -14,16 +19,16 @@ public class Window extends Application {
         int height = 600;
         Group root = new Group();
         stage.setTitle("Turtle");
-        Scene scene = new Scene(root, width, height);
-        stage.setScene(scene);
-
+        Canvas canvas = new Canvas(width, height);
+        GraphicsContext gc = canvas.getGraphicsContext2D();
         // 绘图部分
-        Controller controller = new Controller(scene);
-        Group turtles = controller.draw();
+        Controller controller = new Controller();
+        controller.draw(gc);
 
-        root.getChildren().add(turtles);
-
+        root.getChildren().add(canvas);
+        stage.setScene(new Scene(root));
         stage.show();
+        canvas.requestFocus();
     }
 
     public static void main(String[] args) {
